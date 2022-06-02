@@ -28,4 +28,3 @@ Ubuntu 20.04 with ROS Noetic
     
 ## about gps time
 time correction needs to be done
-yes
