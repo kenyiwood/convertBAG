@@ -9,7 +9,7 @@ This program converts 3 types of data to rosbag files.
 
     convertBAG inputFilesPath saveRosbagsPath
     
-    just like
+    put your data into inputFilePath and use command like
     
     ./convertBAG /home/user/inputfiles /home/user/BAGFiles
     
