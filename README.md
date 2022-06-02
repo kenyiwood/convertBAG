@@ -4,9 +4,11 @@ This program converts 3 types of data to rosbag files.
 3. image(.jpg) 
 
 To run this program use:
+
     convertBAG inputFilesPath saveRosbagsPath
 
 just like
+
     ./convertBAG /home/user/inputfiles /home/user/BAGFiles
     
 ## gps and imu data content:
