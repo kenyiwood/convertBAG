@@ -1,1 +1,1 @@
-offline convert point cloud(.las), gps and imu data(.txt), and images(.jpg) files to ROS BAG files.
+offline convert point cloud(.las), gps and imu data(.txt), and image(.jpg) files to ROS BAG files.
