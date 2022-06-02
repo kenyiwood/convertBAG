@@ -27,4 +27,4 @@ Ubuntu 20.04 with ROS Noetic
     [gpstime] [latitude] [longitude] [height] [pitch] [roll] [heading]
     
 ## about gps time
-time correction needs to be done
+time correction needs to be done.
