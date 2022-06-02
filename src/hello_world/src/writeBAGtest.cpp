@@ -107,9 +107,6 @@ int main(int argc, char** argv)
             ImageContent imageTemp;
             imageTemp.imageFilePath = files[i];
             imagecontent.push_back(imageTemp);
-            // string saveFileName =
-            // inputFile.replace(inputFile.find(inputDirectory),
-            // inputDirectory.size(), outputDirectory) + ".bag";
         }
     }
     readImageFile(imagecontent, outputDirectory);
