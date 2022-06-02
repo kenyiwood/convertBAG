@@ -18,6 +18,8 @@ This program converts 3 types of data to rosbag files.
 
 -libLAS (https://www.liblas.org/)
 
+-cpp_progress_bar (https://github.com/htailor/cpp_progress_bar)
+
 ## Environment
 Ubuntu 20.04 with ROS Noetic
     
