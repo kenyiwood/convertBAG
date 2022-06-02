@@ -96,6 +96,7 @@ int main(int argc, char** argv)
     vector<ImageContent> imagecontent;
 
     cout << "開始搜尋資料夾內檔案進行轉檔\n\n";
+    
     // 針對資料夾內所有檔案進行轉檔
     for (int i = 0; i < files.size(); i++)
     {
