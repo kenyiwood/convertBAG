@@ -1,0 +1,8 @@
+prefix=/home/kenyi/catkin_ws/install
+
+Name: hello_world
+Description: Description of hello_world
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: 
