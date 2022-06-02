@@ -15,6 +15,7 @@ This program converts 3 types of data to rosbag files.
     
 ## Required dependencies
 -ROS (https://www.ros.org/)
+
 -libLAS (https://www.liblas.org/)
 
 ## Environment
@@ -24,4 +25,4 @@ Ubuntu 20.04 with ROS Noetic
     [gpstime] [latitude] [longitude] [height] [pitch] [roll] [heading]
     
 ## about gps time
-some correction needs to be done
+time correction needs to be done
