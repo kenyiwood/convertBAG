@@ -14,28 +14,33 @@
 #include <std_msgs/String.h>
 #include <liblas/liblas.hpp>
 #include "hello_world/saveLidarBag.hpp"
-#include "hello_world/progress_bar.hpp"
+#include "hello_world/setProgressBar.hpp"
 
 using namespace std;
 
-const string LidarNodeTopic = "/lidar_fl/points_raw";
-const string frameIDLidar = "velodyne_fl";
+const string LidarNodeTopic = "";
+const string LidarNodeTopicL = "/lidar_fl/points_raw";
+const string LidarNodeTopicR = "/lidar_fr/points_raw";
+const string frameIDLidar = "";
+const string frameIDLidarL = "velodyne_fl";
+const string frameIDLidarR = "velodyne_fr";
 
 static bool is_shutting_down = false;
-const long int timeFrom1970ToNow = 1617408000;
+const long int timeFrom1970ToNow = 1639872000;
 
 class DataContainerBase
 {
-public:
+   public:
     DataContainerBase(
         const string &frame_id,
         const unsigned int init_width,
         const unsigned int init_height,
         const bool is_dense,
-        int fields) : frame_id_(frame_id),
-                      init_width_(init_width),
-                      init_height_(init_height),
-                      is_dense_(is_dense)
+        int fields) :
+        frame_id_(frame_id),
+        init_width_(init_width),
+        init_height_(init_height),
+        is_dense_(is_dense)
     {
         // add fields
         cloud_.fields.clear();
@@ -72,7 +77,7 @@ public:
         return cloud_;
     }
 
-protected:
+   protected:
     string frame_id_;
     unsigned int init_width_;
     unsigned int init_height_;
@@ -83,13 +88,14 @@ protected:
 
 class PointCloudXYZIT : public DataContainerBase
 {
-public:
-    PointCloudXYZIT(const string &frame_id = frameIDLidar) : DataContainerBase(frame_id, 0, 1, true, 5),
-                                                             iter_x_(cloud_, "x"),
-                                                             iter_y_(cloud_, "y"),
-                                                             iter_z_(cloud_, "z"),
-                                                             iter_intensity_(cloud_, "intensity"),
-                                                             iter_time_(cloud_, "time")
+   public:
+    PointCloudXYZIT(const string &frame_id = frameIDLidar) :
+        DataContainerBase(frame_id, 0, 1, true, 5),
+        iter_x_(cloud_, "x"),
+        iter_y_(cloud_, "y"),
+        iter_z_(cloud_, "z"),
+        iter_intensity_(cloud_, "intensity"),
+        iter_time_(cloud_, "time")
     {
     }
 
@@ -119,7 +125,7 @@ public:
         ++iter_time_;
     }
 
-private:
+   private:
     sensor_msgs::PointCloud2Iterator<float> iter_x_, iter_y_, iter_z_, iter_intensity_;
     sensor_msgs::PointCloud2Iterator<float> iter_time_;
 };
@@ -130,23 +136,26 @@ void sigint_callback(int sig)
     is_shutting_down = true;
 }
 
-void readLASFile(string file, bool showDataDetail, string saveFileName)
+void readLASFile(string file, bool showDataDetail, string saveFileName, double &eachStartTime, double &eachEndTime, string LeftOrRight, int secondsBetweenIEAndROS, double &firstRecordTime)
 {
+    bool ifFirstRecordTime = false;
+    /*
     if (is_shutting_down)
-        ROS_INFO("shutting down!");
+        ROS_INFO("shutting down!");*/
 
-    int vectorCount = 0, vectorOneTotal = 10000;
+    int vectorCount = 0;
+    double timeMarkStart = 0.0, timeMarkNow = 0.0;
 
     // pcl::FileReader(file);
-    vector<vector<LASContent>> lascontent;
+    vector<vector<LASContent>> lascontent; // all las datas are saved as ros bag messages
     // double gpstime,x,y,z,intensity,colorRed,colorGreen,colorBlue;
     rosbag::Bag bag;
-    unsigned long int pointsCount;
 
+    unsigned long int pointsCount;
     ifstream ifs;
     ifs.open(file, std::ios::in | std::ios::binary);
     if (!ifs.is_open())
-        cout << file << "檔案開啟失敗!\n";
+        std::cout << file << "檔案開啟失敗!\n";
     else
     {
         liblas::ReaderFactory readerfactory;
@@ -157,65 +166,127 @@ void readLASFile(string file, bool showDataDetail, string saveFileName)
 
         int counter = 0;
 
-        vector<LASContent> lascontentTemp;
+        vector<LASContent> lascontentTemp; // each point data vector
 
         // 進度列
-        cout << boost::filesystem::path(file).string() + "點雲處理\n";
+        std::cout << boost::filesystem::path(file).string() + "點雲處理\n";
         ProgressBar *bar2 = new ProgressBar(pointsCount, "讀取點雲:");
         bar2->SetFrequencyUpdate(100);
         bar2->SetStyle("|", "-");
 
+        double time, x, y, z, intensity;
+
         while (reader.ReadNextPoint())
         {
-            liblas::Point const &p = reader.GetPoint();
+            liblas::Point const &point = reader.GetPoint();
+            time = point.GetTime();
+            x = point.GetX();
+            y = point.GetY();
+            z = point.GetZ();
+            intensity = point.GetIntensity();
+
+            double timeAppend = time + secondsBetweenIEAndROS;
+
+            // 紀錄首筆時間 之後每筆資料皆扣掉首比時間
+            // 2022.12.08 成大要求點雲時間改為記錄相對時間
+            if (ifFirstRecordTime == false)
+            {
+                firstRecordTime = timeAppend;
+                ifFirstRecordTime = true;
+            }
+
+            if (LeftOrRight == "Left")
+            {
+                if (counter == 0)
+                {
+                    eachStartTime = timeAppend;
+                    timeMarkStart = timeAppend;
+                }
+                else
+                {
+                    eachEndTime = timeAppend;
+
+                    if (timeAppend < eachStartTime)
+                        eachStartTime = timeAppend;
+
+                    if (timeAppend > eachEndTime)
+                        eachEndTime = timeAppend;
+
+                    timeMarkNow = timeAppend;
+                }
+            }
+            else if (LeftOrRight == "Right")
+            {
+                if (counter == 0)
+                    timeMarkStart = timeAppend;
+
+                else
+                    timeMarkNow = timeAppend;
+            }
             LASContent oneContent;
 
             // ros timestamp
-            double time = p.GetTime();
-            uint32_t sec = floor(time) + timeFrom1970ToNow;
-            uint32_t nsec = floor((time - sec) * 1000000000);
+            timeAppend = timeAppend - firstRecordTime;  // 記錄相對時間 = 此筆資料時間 - 第一筆時間
+            uint32_t sec = floor(timeAppend + firstRecordTime);  // stamp還是記錄真實時間
+            uint32_t nsec = floor((timeAppend + firstRecordTime - sec) * 1000000000);
             ros::Time::init();
             ros::Time stamp(sec, nsec);
             oneContent.stamp = stamp;
 
-            oneContent.gpstime = p.GetTime();
-            oneContent.x = p.GetX();
-            oneContent.y = p.GetY();
-            oneContent.z = p.GetZ();
+            oneContent.gpstime = timeAppend;  // gpstime記錄真實時間
+            oneContent.x = x;
+            oneContent.y = y;
+            oneContent.z = z;
 
-            oneContent.intensity = p.GetIntensity();
-            oneContent.colorRed = p.GetColor().GetRed();
-            oneContent.colorGreen = p.GetColor().GetGreen();
-            oneContent.colorBlue = p.GetColor().GetBlue();
+            oneContent.intensity = intensity;
 
-            if (counter >= vectorOneTotal * (vectorCount + 1))
+            if (LeftOrRight == "Left" && timeAppend > 0)
+                lascontentTemp.push_back(oneContent);
+
+            else if (LeftOrRight == "Right" && timeAppend > 0)
+            {
+                if (timeAppend >= (eachStartTime - firstRecordTime) && timeAppend <= (eachEndTime - firstRecordTime))
+                    lascontentTemp.push_back(oneContent);
+            }
+
+            counter++;
+            bar2->Progressed(counter);
+
+            // 每1個frame記錄成一個message, 而1個frame約是0.100100秒, 裡面包含數十萬筆點雲資料
+            if ((timeMarkNow - timeMarkStart) >= 0.100100 && lascontentTemp.size() > 0)
             {
                 lascontent.push_back(lascontentTemp);
                 vectorCount++;
+                ifFirstRecordTime = false;
                 lascontentTemp.clear();
+                timeMarkStart = timeMarkNow;
             }
-
-            lascontentTemp.push_back(oneContent);
-            counter++;
-
-            bar2->Progressed(counter);
         }
         if (lascontentTemp.size() > 0)
             lascontent.push_back(lascontentTemp);
     }
     ifs.close();
-    // cout << pointsCount << "  " << lascontent.size() << "  "
-    //      << lascontent[lascontent.size() - 1].size() << endl;
 
-    cout << "\n";
+    std::cout << "\n";
 
     signal(SIGINT, sigint_callback);
 
-    ProgressBar *bar3 = new ProgressBar(lascontent.size(), "點雲轉檔:");
-    bar3->SetFrequencyUpdate(100);
-    bar3->SetStyle("|", "-");
+    ProgressBar *bar3 = setupProgressBarPartial("點雲轉檔:", lascontent.size());
+
+    if (LeftOrRight == "Left")
+        bag.open(saveFileName, rosbag::bagmode::Write);
+    else if (LeftOrRight == "Right")
+        bag.open(saveFileName, rosbag::bagmode::Append);
+
     for (int vector = 0; vector < lascontent.size(); vector++)
     {
+        string frameIDLidar = frameIDLidarL;
+        string LidarNodeTopic = LidarNodeTopicL;
+        if (LeftOrRight == "Right")
+        {
+            frameIDLidar = frameIDLidarR;
+            LidarNodeTopic = LidarNodeTopicR;
+        }
         shared_ptr<PointCloudXYZIT> container(new PointCloudXYZIT(frameIDLidar));
         container->setup(lascontent[vector].size(), lascontent[vector][0].stamp);
         // cout << vector << endl;
@@ -223,94 +294,34 @@ void readLASFile(string file, bool showDataDetail, string saveFileName)
         for (int i = 0; i < lascontent[vector].size(); i++)
         {
             container->addPoint(lascontent[vector][i].x,
-                                lascontent[vector][i].y,
-                                lascontent[vector][i].z,
-                                lascontent[vector][i].intensity,
-                                lascontent[vector][i].gpstime);
+                lascontent[vector][i].y,
+                lascontent[vector][i].z,
+                lascontent[vector][i].intensity,
+                lascontent[vector][i].gpstime);
         }
-        if (vector == 0)
-        {
-            bag.open(saveFileName, rosbag::bagmode::Write);
-        }
-        else
-            bag.open(saveFileName, rosbag::bagmode::Append);
 
         bag.write(LidarNodeTopic, lascontent[vector][0].stamp, container->finishCloud());
-        bag.close();
+        // bag.close();
 
         bar3->Progressed(vector + 1);
     }
 
-    cout << "\n檔案輸出:" << saveFileName << "\n\n";
+    std::cout << "\n 檔案輸出:" << saveFileName << "\n\n";
 
     if (showDataDetail)
     {
         for (int i = 0; i < lascontent.size(); i++)
         {
             for (int j = 0; j < lascontent[i].size(); j++)
-                cout << i << ":" << lascontent[i][j].gpstime << "  "
-                     << lascontent[i][j].x << "  "
-                     << lascontent[i][j].y << "  "
-                     << lascontent[i][j].z << "  "
-                     << lascontent[i][j].intensity << "  "
-                     << lascontent[i][j].colorRed << "  "
-                     << lascontent[i][j].colorGreen << "  "
-                     << lascontent[i][j].colorBlue << endl;
+                std::cout << i << ":" << lascontent[i][j].gpstime << "  "
+                          << lascontent[i][j].x << "  "
+                          << lascontent[i][j].y << "  "
+                          << lascontent[i][j].z << "  "
+                          << lascontent[i][j].intensity << "  "
+                          << lascontent[i][j].colorRed << "  "
+                          << lascontent[i][j].colorGreen << "  "
+                          << lascontent[i][j].colorBlue << endl;
         }
     }
+    ifFirstRecordTime = false;
 }
-
-/*
-void convertLASFileContentToBAG(pcl::PointCloud<pcl::PointXYZI> cloud)
-{
-    // cout << "" << endl;
-    // sensor_msgs::PointCloud2 output;
-    // for (int i)
-
-    // write sensor_msgs/PointCloud2
-    uint32_t sec=111,nsec=222;
-    ros::Time::init();
-    ros::Time stamp(sec,nsec);
-    rosbag::Bag bag(saveFileName,rosbag::bagmode::Write);
-    sensor_msgs::PointCloud2 pointCloud;
-
-    pointCloud.header.stamp=stamp;
-    pointCloud.header.seq=0;
-    pointCloud.header.frame_id=frameIDLidar;
-
-    // 2D structure of the point cloud. If the cloud is unordered, height is
-    // 1 and width is the length of the point cloud.
-    int num_points=1,point_step=20;
-    pointCloud.height=1;
-    pointCloud.width=num_points; // num_points, width X point_step = row_step
-
-    pointCloud.fields[0].name = "x";
-    pointCloud.fields[0].offset=0;
-    pointCloud.fields[0].datatype=7;
-    pointCloud.fields[0].count=1;
-
-    pointCloud.fields[1].name = "y";
-    pointCloud.fields[1].offset=4;
-    pointCloud.fields[1].datatype=7;
-    pointCloud.fields[1].count=1;
-
-    pointCloud.fields[2].name = "z";
-    pointCloud.fields[2].offset=8;
-    pointCloud.fields[2].datatype=7;
-    pointCloud.fields[2].count=1;
-
-    pointCloud.fields[3].name = "intensity";
-    pointCloud.fields[3].offset=12;
-    pointCloud.fields[3].datatype=7;
-    pointCloud.fields[3].count=1;
-
-    pointCloud.fields[4].name = "time";
-    pointCloud.fields[4].offset=16;
-    pointCloud.fields[4].datatype=7;
-    pointCloud.fields[4].count=1;
-
-    pointCloud.is_bigendian=false;
-    pointCloubag.close();d.point_step=point_step;
-    pointCloud.row_step=point_step*num_points;
-
-}*/

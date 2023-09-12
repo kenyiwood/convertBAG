@@ -1,17 +1,6 @@
-#include <lanelet2_core/primitives/Lanelet.h>
-#include <lanelet2_io/Io.h>
-#include <lanelet2_io/io_handlers/Factory.h>
-#include <lanelet2_io/io_handlers/Writer.h>
-#include <lanelet2_projection/UTM.h>
-#include <lanelet2_validation/Validation.h>
+#include <iostream>
+#include <string>
 #include <ctime>
-/*#include <pcl/io/hdl_grabber.h>
-#include <pcl/console/parse.h>
-#include <pcl/common/time.h>*/
-
-#include <cstdio>
-
-//#include <Eigen/Geometry>
 
 using namespace std;
 int dayOfTheWeek(int year, int month, int day)
@@ -28,7 +17,7 @@ int dayOfTheWeek(int year, int month, int day)
     t.tm_isdst = 0;
 
     t_of_day = mktime(&t);
-    cout << ctime(&t_of_day) << endl;
+    // cout << ctime(&t_of_day) << endl;
     string dd = "";
     dd += ctime(&t_of_day)[0];
     dd += ctime(&t_of_day)[1];
@@ -52,7 +41,7 @@ int dayOfTheWeek(int year, int month, int day)
     return returnValue;
 }
 
-double secondsDifference(int year0,int month0,int day0,int year1,int month1,int day1)
+double secondsDifference(int year0, int month0, int day0, int year1, int month1, int day1)
 {
     struct tm t;
     time_t t_of_day;
@@ -77,26 +66,13 @@ double secondsDifference(int year0,int month0,int day0,int year1,int month1,int 
 
     t_of_day2 = mktime(&t2);
 
-    return difftime(t_of_day2,t_of_day);
+    return difftime(t_of_day2, t_of_day);
 }
-int main()
+
+int secondsDifferenceBetweenIEAndROS(int year, int month, int day)
 {
-    /*
-    time_t now = time(0);
-    cout << "1970到現在總秒數:" << now << endl;
-
-    tm *ltm = localtime(&now);
-    cout << "年:" << 1900 + ltm->tm_year << endl;
-    cout << "月:" << 1 + ltm->tm_mon << endl; 
-    */
-    cout<<secondsDifference(2022,8,6,2022,8,8)<<endl;
-
-    /* 
-    string dayofweek;
-    dayofweek += a[0];
-    dayofweek += a[1];
-    dayofweek += a[2];
-    cout << dayofweek << endl;*/
-
-    return 0;
+    double secondsFrom1970 = secondsDifference(1970, 1, 1, year, month, day);
+    int secondsFromThisSunday = dayOfTheWeek(year, month, day);
+    int totalSecondsBetweenIEAndROS = secondsFrom1970 - secondsFromThisSunday * 86400 - 18;
+    return totalSecondsBetweenIEAndROS;
 }

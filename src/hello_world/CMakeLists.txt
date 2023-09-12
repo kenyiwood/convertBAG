@@ -16,9 +16,9 @@ find_package(catkin REQUIRED COMPONENTS
   image_transport
 )
 find_package(Eigen3 REQUIRED)
-
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
+
 
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -127,10 +127,13 @@ include_directories(
 
 ## Declare a C++ library
  add_library(${PROJECT_NAME}
+   src/getAllFiles.cpp
    src/saveIMUBag.cpp
    src/saveLidarBag.cpp
    src/saveImageBag.cpp
    src/progress_bar.cpp
+   src/setProgressBar.cpp
+   src/timeConverter.cpp
  )
 
 ## Add cmake target dependencies of the library
@@ -144,14 +147,14 @@ add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EX
 # add_executable(${PROJECT_NAME}_node src/hello_world_node.cpp)
 add_executable(talker src/talker.cpp)
 add_executable(lanelet2 src/lanelet2.cpp)
-add_executable(convertBAG src/writeBAGtest.cpp src/saveLidarBag.cpp src/saveIMUBag.cpp src/saveImageBag.cpp src/progress_bar.cpp)
+add_executable(convertBAG src/writeBAGtest.cpp src/saveLidarBag.cpp src/saveIMUBag.cpp src/saveImageBag.cpp src/progress_bar.cpp src/getAllFiles.cpp src/setProgressBar.cpp src/timeConverter.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
 ## e.g. "rosrun someones_pkg node" instead of "rosrun someones_pkg someones_pkg_node"
 # set_target_properties(${PROJECT_NAME}_node PROPERTIES OUTPUT_NAME node PREFIX "")
-
+#add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 ## Add cmake target dependencies of the executable
 ## same as for the library above
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
@@ -177,7 +180,7 @@ target_link_libraries(convertBAG ${catkin_LIBRARIES} "/usr/local/lib/liblas.so")
 #   scripts/my_python_script
 #   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 # )
-
+target_link_libraries(lanelet2 ${catkin_LIBRARIES})
 ## Mark executables for installation
 ## See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_executables.html
 # install(TARGETS ${PROJECT_NAME}_node

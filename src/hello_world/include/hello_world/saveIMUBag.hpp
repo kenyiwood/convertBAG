@@ -21,4 +21,7 @@ struct IEContent {
     double SDHeight;
 };
 
-void readIEFile(string file, bool showDataDetail, string saveFileName);
+void readIEFile(string file, vector<IEContent> &iecontent,
+                int secondsBetweenIEAndROS);
+void convertIEFileContentToBAG(vector<IEContent> iecontent, string saveFileName,
+                               double eachStartTime, double eachEndTime);

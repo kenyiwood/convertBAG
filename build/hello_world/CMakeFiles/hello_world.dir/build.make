@@ -57,9 +57,22 @@ include hello_world/CMakeFiles/hello_world.dir/progress.make
 # Include the compile flags for this target's objects.
 include hello_world/CMakeFiles/hello_world.dir/flags.make
 
+hello_world/CMakeFiles/hello_world.dir/src/getAllFiles.cpp.o: hello_world/CMakeFiles/hello_world.dir/flags.make
+hello_world/CMakeFiles/hello_world.dir/src/getAllFiles.cpp.o: /home/kenyi/catkin_ws/src/hello_world/src/getAllFiles.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kenyi/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object hello_world/CMakeFiles/hello_world.dir/src/getAllFiles.cpp.o"
+	cd /home/kenyi/catkin_ws/build/hello_world && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hello_world.dir/src/getAllFiles.cpp.o -c /home/kenyi/catkin_ws/src/hello_world/src/getAllFiles.cpp
+
+hello_world/CMakeFiles/hello_world.dir/src/getAllFiles.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/hello_world.dir/src/getAllFiles.cpp.i"
+	cd /home/kenyi/catkin_ws/build/hello_world && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kenyi/catkin_ws/src/hello_world/src/getAllFiles.cpp > CMakeFiles/hello_world.dir/src/getAllFiles.cpp.i
+
+hello_world/CMakeFiles/hello_world.dir/src/getAllFiles.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/hello_world.dir/src/getAllFiles.cpp.s"
+	cd /home/kenyi/catkin_ws/build/hello_world && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kenyi/catkin_ws/src/hello_world/src/getAllFiles.cpp -o CMakeFiles/hello_world.dir/src/getAllFiles.cpp.s
+
 hello_world/CMakeFiles/hello_world.dir/src/saveIMUBag.cpp.o: hello_world/CMakeFiles/hello_world.dir/flags.make
 hello_world/CMakeFiles/hello_world.dir/src/saveIMUBag.cpp.o: /home/kenyi/catkin_ws/src/hello_world/src/saveIMUBag.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kenyi/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object hello_world/CMakeFiles/hello_world.dir/src/saveIMUBag.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kenyi/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object hello_world/CMakeFiles/hello_world.dir/src/saveIMUBag.cpp.o"
 	cd /home/kenyi/catkin_ws/build/hello_world && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hello_world.dir/src/saveIMUBag.cpp.o -c /home/kenyi/catkin_ws/src/hello_world/src/saveIMUBag.cpp
 
 hello_world/CMakeFiles/hello_world.dir/src/saveIMUBag.cpp.i: cmake_force
@@ -72,7 +85,7 @@ hello_world/CMakeFiles/hello_world.dir/src/saveIMUBag.cpp.s: cmake_force
 
 hello_world/CMakeFiles/hello_world.dir/src/saveLidarBag.cpp.o: hello_world/CMakeFiles/hello_world.dir/flags.make
 hello_world/CMakeFiles/hello_world.dir/src/saveLidarBag.cpp.o: /home/kenyi/catkin_ws/src/hello_world/src/saveLidarBag.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kenyi/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object hello_world/CMakeFiles/hello_world.dir/src/saveLidarBag.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kenyi/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object hello_world/CMakeFiles/hello_world.dir/src/saveLidarBag.cpp.o"
 	cd /home/kenyi/catkin_ws/build/hello_world && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hello_world.dir/src/saveLidarBag.cpp.o -c /home/kenyi/catkin_ws/src/hello_world/src/saveLidarBag.cpp
 
 hello_world/CMakeFiles/hello_world.dir/src/saveLidarBag.cpp.i: cmake_force
@@ -85,7 +98,7 @@ hello_world/CMakeFiles/hello_world.dir/src/saveLidarBag.cpp.s: cmake_force
 
 hello_world/CMakeFiles/hello_world.dir/src/saveImageBag.cpp.o: hello_world/CMakeFiles/hello_world.dir/flags.make
 hello_world/CMakeFiles/hello_world.dir/src/saveImageBag.cpp.o: /home/kenyi/catkin_ws/src/hello_world/src/saveImageBag.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kenyi/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object hello_world/CMakeFiles/hello_world.dir/src/saveImageBag.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kenyi/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object hello_world/CMakeFiles/hello_world.dir/src/saveImageBag.cpp.o"
 	cd /home/kenyi/catkin_ws/build/hello_world && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hello_world.dir/src/saveImageBag.cpp.o -c /home/kenyi/catkin_ws/src/hello_world/src/saveImageBag.cpp
 
 hello_world/CMakeFiles/hello_world.dir/src/saveImageBag.cpp.i: cmake_force
@@ -98,7 +111,7 @@ hello_world/CMakeFiles/hello_world.dir/src/saveImageBag.cpp.s: cmake_force
 
 hello_world/CMakeFiles/hello_world.dir/src/progress_bar.cpp.o: hello_world/CMakeFiles/hello_world.dir/flags.make
 hello_world/CMakeFiles/hello_world.dir/src/progress_bar.cpp.o: /home/kenyi/catkin_ws/src/hello_world/src/progress_bar.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kenyi/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object hello_world/CMakeFiles/hello_world.dir/src/progress_bar.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kenyi/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object hello_world/CMakeFiles/hello_world.dir/src/progress_bar.cpp.o"
 	cd /home/kenyi/catkin_ws/build/hello_world && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hello_world.dir/src/progress_bar.cpp.o -c /home/kenyi/catkin_ws/src/hello_world/src/progress_bar.cpp
 
 hello_world/CMakeFiles/hello_world.dir/src/progress_bar.cpp.i: cmake_force
@@ -109,23 +122,55 @@ hello_world/CMakeFiles/hello_world.dir/src/progress_bar.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/hello_world.dir/src/progress_bar.cpp.s"
 	cd /home/kenyi/catkin_ws/build/hello_world && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kenyi/catkin_ws/src/hello_world/src/progress_bar.cpp -o CMakeFiles/hello_world.dir/src/progress_bar.cpp.s
 
+hello_world/CMakeFiles/hello_world.dir/src/setProgressBar.cpp.o: hello_world/CMakeFiles/hello_world.dir/flags.make
+hello_world/CMakeFiles/hello_world.dir/src/setProgressBar.cpp.o: /home/kenyi/catkin_ws/src/hello_world/src/setProgressBar.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kenyi/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object hello_world/CMakeFiles/hello_world.dir/src/setProgressBar.cpp.o"
+	cd /home/kenyi/catkin_ws/build/hello_world && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hello_world.dir/src/setProgressBar.cpp.o -c /home/kenyi/catkin_ws/src/hello_world/src/setProgressBar.cpp
+
+hello_world/CMakeFiles/hello_world.dir/src/setProgressBar.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/hello_world.dir/src/setProgressBar.cpp.i"
+	cd /home/kenyi/catkin_ws/build/hello_world && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kenyi/catkin_ws/src/hello_world/src/setProgressBar.cpp > CMakeFiles/hello_world.dir/src/setProgressBar.cpp.i
+
+hello_world/CMakeFiles/hello_world.dir/src/setProgressBar.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/hello_world.dir/src/setProgressBar.cpp.s"
+	cd /home/kenyi/catkin_ws/build/hello_world && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kenyi/catkin_ws/src/hello_world/src/setProgressBar.cpp -o CMakeFiles/hello_world.dir/src/setProgressBar.cpp.s
+
+hello_world/CMakeFiles/hello_world.dir/src/timeConverter.cpp.o: hello_world/CMakeFiles/hello_world.dir/flags.make
+hello_world/CMakeFiles/hello_world.dir/src/timeConverter.cpp.o: /home/kenyi/catkin_ws/src/hello_world/src/timeConverter.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kenyi/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object hello_world/CMakeFiles/hello_world.dir/src/timeConverter.cpp.o"
+	cd /home/kenyi/catkin_ws/build/hello_world && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hello_world.dir/src/timeConverter.cpp.o -c /home/kenyi/catkin_ws/src/hello_world/src/timeConverter.cpp
+
+hello_world/CMakeFiles/hello_world.dir/src/timeConverter.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/hello_world.dir/src/timeConverter.cpp.i"
+	cd /home/kenyi/catkin_ws/build/hello_world && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kenyi/catkin_ws/src/hello_world/src/timeConverter.cpp > CMakeFiles/hello_world.dir/src/timeConverter.cpp.i
+
+hello_world/CMakeFiles/hello_world.dir/src/timeConverter.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/hello_world.dir/src/timeConverter.cpp.s"
+	cd /home/kenyi/catkin_ws/build/hello_world && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kenyi/catkin_ws/src/hello_world/src/timeConverter.cpp -o CMakeFiles/hello_world.dir/src/timeConverter.cpp.s
+
 # Object files for target hello_world
 hello_world_OBJECTS = \
+"CMakeFiles/hello_world.dir/src/getAllFiles.cpp.o" \
 "CMakeFiles/hello_world.dir/src/saveIMUBag.cpp.o" \
 "CMakeFiles/hello_world.dir/src/saveLidarBag.cpp.o" \
 "CMakeFiles/hello_world.dir/src/saveImageBag.cpp.o" \
-"CMakeFiles/hello_world.dir/src/progress_bar.cpp.o"
+"CMakeFiles/hello_world.dir/src/progress_bar.cpp.o" \
+"CMakeFiles/hello_world.dir/src/setProgressBar.cpp.o" \
+"CMakeFiles/hello_world.dir/src/timeConverter.cpp.o"
 
 # External object files for target hello_world
 hello_world_EXTERNAL_OBJECTS =
 
+/home/kenyi/catkin_ws/devel/lib/libhello_world.so: hello_world/CMakeFiles/hello_world.dir/src/getAllFiles.cpp.o
 /home/kenyi/catkin_ws/devel/lib/libhello_world.so: hello_world/CMakeFiles/hello_world.dir/src/saveIMUBag.cpp.o
 /home/kenyi/catkin_ws/devel/lib/libhello_world.so: hello_world/CMakeFiles/hello_world.dir/src/saveLidarBag.cpp.o
 /home/kenyi/catkin_ws/devel/lib/libhello_world.so: hello_world/CMakeFiles/hello_world.dir/src/saveImageBag.cpp.o
 /home/kenyi/catkin_ws/devel/lib/libhello_world.so: hello_world/CMakeFiles/hello_world.dir/src/progress_bar.cpp.o
+/home/kenyi/catkin_ws/devel/lib/libhello_world.so: hello_world/CMakeFiles/hello_world.dir/src/setProgressBar.cpp.o
+/home/kenyi/catkin_ws/devel/lib/libhello_world.so: hello_world/CMakeFiles/hello_world.dir/src/timeConverter.cpp.o
 /home/kenyi/catkin_ws/devel/lib/libhello_world.so: hello_world/CMakeFiles/hello_world.dir/build.make
 /home/kenyi/catkin_ws/devel/lib/libhello_world.so: hello_world/CMakeFiles/hello_world.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/kenyi/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX shared library /home/kenyi/catkin_ws/devel/lib/libhello_world.so"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/kenyi/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX shared library /home/kenyi/catkin_ws/devel/lib/libhello_world.so"
 	cd /home/kenyi/catkin_ws/build/hello_world && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/hello_world.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

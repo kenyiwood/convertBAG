@@ -10,53 +10,41 @@
 #include <sensor_msgs/CompressedImage.h>
 #include <boost/filesystem.hpp>
 #include "hello_world/saveImageBag.hpp"
+#include "hello_world/setProgressBar.hpp"
 
 using namespace std;
 using namespace cv;
-const string ImageNodeTopic = "/mynteye/left/image_color/compressed/undistorted";
+const string ImageNodeTopicCam1 = "/cam_1/image_raw/compressed";
+const string ImageNodeTopicCam7 = "/cam_7/image_raw/compressed";
 const string frameIDImage = "mynteye_left_color_frame";
-int howManyPicturesInABagFile = 5;
 bool bagFileWritten = false;
 int timeadd = 1;
 
-void readImageFile(vector<ImageContent> imagecontent, string saveFileDirectory)
+void readImageFile(vector<ImageContent> imagecontent, string saveFileName, double eachStartTime, double eachEndTime)
 {
-    string saveSubFolder;
-    string saveBagFile;
-
     cout << "影像轉檔中...\n";
-    ProgressBar *bar3 = new ProgressBar(imagecontent.size(), "影像轉檔:");
-    if (imagecontent.size() < 100)
-        bar3->SetFrequencyUpdate(imagecontent.size());
-    else
-        bar3->SetFrequencyUpdate(100);
-    bar3->SetStyle("|", "-");
+    ProgressBar *bar3 = setupProgressBarPartial("影像轉檔:", imagecontent.size());
+    rosbag::Bag bag(saveFileName, rosbag::bagmode::Append);
 
     for (int i = 0; i < imagecontent.size(); i++)
     {
-        saveSubFolder = saveFileDirectory + "/image";
-        saveBagFile = saveSubFolder + "/" + to_string(i / howManyPicturesInABagFile) + ".bag";
-
-        if (!boost::filesystem::is_directory(saveSubFolder))
-            boost::filesystem::create_directories(saveSubFolder);
-
-        if (i % howManyPicturesInABagFile == 0)
-            bagFileWritten = false;
+        if (imagecontent[i].gpstime >= eachStartTime && imagecontent[i].gpstime <= eachEndTime)
+            saveImageBag(imagecontent[i], saveFileName, bag);
 
         bar3->Progressed(i + 1);
-
-        saveImageBag(imagecontent[i], saveBagFile);
         timeadd++;
     }
-    cout << "\n\n";
+    cout << "\n 影像輸出:" << saveFileName << "\n\n";
 }
 
-void saveImageBag(ImageContent imagecontent, string saveFileName)
+void saveImageBag(ImageContent imagecontent, string saveFileName, rosbag::Bag& bag)
 {
     string imageFilePath = imagecontent.imageFilePath;
+    string imageFileName = imagecontent.filename;
+    double gpstime = imagecontent.gpstime;
 
     // 處理時間
-    double time = 1651548673.123456789 + timeadd;
+    double time = gpstime;
     uint32_t sec = floor(time);
     uint32_t nsec = floor((time - sec) * 1000000000);
     ros::Time::init();
@@ -77,14 +65,9 @@ void saveImageBag(ImageContent imagecontent, string saveFileName)
 
     image_bridge = cv_bridge::CvImage(header, sensor_msgs::image_encodings::RGB8, image);
     image_bridge.toCompressedImageMsg(sensorMsgsCImage);
-    rosbag::Bag bag;
-    if (!bagFileWritten)
-    {
-        bag.open(saveFileName, rosbag::bagmode::Write);
-        bagFileWritten = true;
-    }
-    else
-        bag.open(saveFileName, rosbag::bagmode::Append);
 
-    bag.write(ImageNodeTopic, stamp, sensorMsgsCImage);
+    if (imageFileName[0] == '1')
+        bag.write(ImageNodeTopicCam1, stamp, sensorMsgsCImage);
+    else
+        bag.write(ImageNodeTopicCam7, stamp, sensorMsgsCImage);
 }

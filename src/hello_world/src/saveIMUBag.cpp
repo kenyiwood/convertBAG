@@ -6,6 +6,7 @@
 #include <std_msgs/String.h>
 #include <geometry_msgs/PoseStamped.h>
 #include "hello_world/saveIMUBag.hpp"
+#include "hello_world/setProgressBar.hpp"
 
 using namespace std;
 const double DegreeConvertToRadian = M_PI / 180;
@@ -119,61 +120,69 @@ double *ConvertRotationMatrixToQuaternion(double rolls, double pitchs, double he
     return Quaternion;
 }
 
-void convertIEFileContentToBAG(vector<IEContent> iecontent, string saveFileName)
+void convertIEFileContentToBAG(vector<IEContent> iecontent, string saveFileName, double eachStartTime, double eachEndTime)
 {
     // write geometry_msgs::PoseStamped
     if (iecontent.size() > 0)
     {
-        rosbag::Bag bag(saveFileName, rosbag::bagmode::Write);
+        cout << "定位檔轉檔中...\n";
+
+        ProgressBar *bar8 = setupProgressBarPartial("定位檔轉檔:", iecontent.size());
+
+        rosbag::Bag bag(saveFileName, rosbag::bagmode::Append);
 
         for (int i = 0; i < iecontent.size(); i++)
         {
             double time = iecontent[i].gpstime;
-            uint32_t sec = floor(time);
-            uint32_t nsec = floor((time - sec) * 1000000000);
-            ros::Time::init();
-            ros::Time stamp(sec, nsec);
-            geometry_msgs::PoseStamped pose;
 
-            pose.header.stamp = stamp;
-            pose.header.seq = 0;
-            pose.header.frame_id = frameIDIMU;
-            double x = iecontent[i].longitude;
-            double y = iecontent[i].latitude;
-            double z = iecontent[i].height;
+            if (time >= eachStartTime && time <= eachEndTime)
+            {
+                uint32_t sec = floor(time);
+                uint32_t nsec = floor((time - sec) * 1000000000);
+                ros::Time::init();
+                ros::Time stamp(sec, nsec);
+                geometry_msgs::PoseStamped pose;
 
-            pose.pose.position.x = x;
-            pose.pose.position.y = y;
-            pose.pose.position.z = z;
+                pose.header.stamp = stamp;
+                pose.header.seq = 0;
+                pose.header.frame_id = frameIDIMU;
+                double x = iecontent[i].longitude;
+                double y = iecontent[i].latitude;
+                double z = iecontent[i].height;
 
-            double *Quaternion = ConvertRotationMatrixToQuaternion(iecontent[i].roll, iecontent[i].pitch, iecontent[i].heading);
+                pose.pose.position.x = x;
+                pose.pose.position.y = y;
+                pose.pose.position.z = z;
 
-            pose.pose.orientation.w = Quaternion[0];
-            pose.pose.orientation.x = Quaternion[1];
-            pose.pose.orientation.y = Quaternion[2];
-            pose.pose.orientation.z = Quaternion[3];
-            saveIMUBag(bag, stamp, pose);
+                double *Quaternion = ConvertRotationMatrixToQuaternion(iecontent[i].roll, iecontent[i].pitch, iecontent[i].heading);
+
+                pose.pose.orientation.w = Quaternion[0];
+                pose.pose.orientation.x = Quaternion[1];
+                pose.pose.orientation.y = Quaternion[2];
+                pose.pose.orientation.z = Quaternion[3];
+                saveIMUBag(bag, stamp, pose);
+            }
+            bar8->Progressed(i + 1);
         }
         bag.close();
-        cout << "檔案輸出:" << saveFileName << "\n\n";
+        cout << "\n 定位檔輸出:" << saveFileName << "\n\n";
     }
 }
 
-void readIEFile(string file, bool showDataDetail, string saveFileName)
+void readIEFile(string file, vector<IEContent> &iecontent, int secondsBetweenIEAndROS)
 {
-    vector<IEContent> iecontent;
     // vector<double> times, latitudes, longitudes, heights, rolls, pitchs, headings;
     ifstream ifs(file, std::ios::in);
     if (!ifs.is_open())
         cout << file << "檔案開啟失敗!\n";
     else
     {
-        cout << file << "定位檔轉換\n";
+        cout << boost::filesystem::path(file).filename().c_str() << "定位檔讀取中...\n";
         double gpstime, latitude, longitude, height, VNorth, VEast, VUp, roll, pitch, heading, SDNorth, SDEast, SDHeight;
         while (ifs >> gpstime >> latitude >> longitude >> height >> VNorth >> VEast >> VUp >> roll >> pitch >> heading >> SDNorth >> SDEast >> SDHeight)
         {
             IEContent oneData;
-            oneData.gpstime = gpstime;
+            oneData.gpstime = gpstime + secondsBetweenIEAndROS;
             oneData.latitude = latitude;
             oneData.longitude = longitude;
             oneData.height = height;
@@ -182,21 +191,8 @@ void readIEFile(string file, bool showDataDetail, string saveFileName)
             oneData.heading = heading;
             iecontent.push_back(oneData);
         }
+        cout << boost::filesystem::path(file).filename().c_str() << "定位檔讀取完畢\n\n";
     }
     ifs.close();
-    convertIEFileContentToBAG(iecontent, saveFileName);
-
-    if (showDataDetail)
-    {
-        for (int i = 0; i < iecontent.size(); i++)
-        {
-            cout << iecontent[i].gpstime << "  "
-                 << iecontent[i].latitude << "  "
-                 << iecontent[i].longitude << "  "
-                 << iecontent[i].height << "  "
-                 << iecontent[i].roll << "  "
-                 << iecontent[i].pitch << "  "
-                 << iecontent[i].heading << endl;
-        }
-    }
+    // convertIEFileContentToBAG(iecontent, saveFileName);
 }

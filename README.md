@@ -21,10 +21,8 @@ This program converts 3 types of data to rosbag files.
 -cpp_progress_bar (https://github.com/htailor/cpp_progress_bar)
 
 ## Environment
-Ubuntu 20.04 with ROS Noetic
+Ubuntu 20.04 with ROS Noetic.
     
 ## gps and imu data content
     [gpstime] [latitude] [longitude] [height] [pitch] [roll] [heading]
     
-## about gps time
-time correction needs to be done

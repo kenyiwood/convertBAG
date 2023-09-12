@@ -122,13 +122,55 @@ hello_world/CMakeFiles/convertBAG.dir/src/progress_bar.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/convertBAG.dir/src/progress_bar.cpp.s"
 	cd /home/kenyi/catkin_ws/build/hello_world && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kenyi/catkin_ws/src/hello_world/src/progress_bar.cpp -o CMakeFiles/convertBAG.dir/src/progress_bar.cpp.s
 
+hello_world/CMakeFiles/convertBAG.dir/src/getAllFiles.cpp.o: hello_world/CMakeFiles/convertBAG.dir/flags.make
+hello_world/CMakeFiles/convertBAG.dir/src/getAllFiles.cpp.o: /home/kenyi/catkin_ws/src/hello_world/src/getAllFiles.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kenyi/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object hello_world/CMakeFiles/convertBAG.dir/src/getAllFiles.cpp.o"
+	cd /home/kenyi/catkin_ws/build/hello_world && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/convertBAG.dir/src/getAllFiles.cpp.o -c /home/kenyi/catkin_ws/src/hello_world/src/getAllFiles.cpp
+
+hello_world/CMakeFiles/convertBAG.dir/src/getAllFiles.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/convertBAG.dir/src/getAllFiles.cpp.i"
+	cd /home/kenyi/catkin_ws/build/hello_world && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kenyi/catkin_ws/src/hello_world/src/getAllFiles.cpp > CMakeFiles/convertBAG.dir/src/getAllFiles.cpp.i
+
+hello_world/CMakeFiles/convertBAG.dir/src/getAllFiles.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/convertBAG.dir/src/getAllFiles.cpp.s"
+	cd /home/kenyi/catkin_ws/build/hello_world && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kenyi/catkin_ws/src/hello_world/src/getAllFiles.cpp -o CMakeFiles/convertBAG.dir/src/getAllFiles.cpp.s
+
+hello_world/CMakeFiles/convertBAG.dir/src/setProgressBar.cpp.o: hello_world/CMakeFiles/convertBAG.dir/flags.make
+hello_world/CMakeFiles/convertBAG.dir/src/setProgressBar.cpp.o: /home/kenyi/catkin_ws/src/hello_world/src/setProgressBar.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kenyi/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object hello_world/CMakeFiles/convertBAG.dir/src/setProgressBar.cpp.o"
+	cd /home/kenyi/catkin_ws/build/hello_world && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/convertBAG.dir/src/setProgressBar.cpp.o -c /home/kenyi/catkin_ws/src/hello_world/src/setProgressBar.cpp
+
+hello_world/CMakeFiles/convertBAG.dir/src/setProgressBar.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/convertBAG.dir/src/setProgressBar.cpp.i"
+	cd /home/kenyi/catkin_ws/build/hello_world && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kenyi/catkin_ws/src/hello_world/src/setProgressBar.cpp > CMakeFiles/convertBAG.dir/src/setProgressBar.cpp.i
+
+hello_world/CMakeFiles/convertBAG.dir/src/setProgressBar.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/convertBAG.dir/src/setProgressBar.cpp.s"
+	cd /home/kenyi/catkin_ws/build/hello_world && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kenyi/catkin_ws/src/hello_world/src/setProgressBar.cpp -o CMakeFiles/convertBAG.dir/src/setProgressBar.cpp.s
+
+hello_world/CMakeFiles/convertBAG.dir/src/timeConverter.cpp.o: hello_world/CMakeFiles/convertBAG.dir/flags.make
+hello_world/CMakeFiles/convertBAG.dir/src/timeConverter.cpp.o: /home/kenyi/catkin_ws/src/hello_world/src/timeConverter.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kenyi/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object hello_world/CMakeFiles/convertBAG.dir/src/timeConverter.cpp.o"
+	cd /home/kenyi/catkin_ws/build/hello_world && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/convertBAG.dir/src/timeConverter.cpp.o -c /home/kenyi/catkin_ws/src/hello_world/src/timeConverter.cpp
+
+hello_world/CMakeFiles/convertBAG.dir/src/timeConverter.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/convertBAG.dir/src/timeConverter.cpp.i"
+	cd /home/kenyi/catkin_ws/build/hello_world && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kenyi/catkin_ws/src/hello_world/src/timeConverter.cpp > CMakeFiles/convertBAG.dir/src/timeConverter.cpp.i
+
+hello_world/CMakeFiles/convertBAG.dir/src/timeConverter.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/convertBAG.dir/src/timeConverter.cpp.s"
+	cd /home/kenyi/catkin_ws/build/hello_world && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kenyi/catkin_ws/src/hello_world/src/timeConverter.cpp -o CMakeFiles/convertBAG.dir/src/timeConverter.cpp.s
+
 # Object files for target convertBAG
 convertBAG_OBJECTS = \
 "CMakeFiles/convertBAG.dir/src/writeBAGtest.cpp.o" \
 "CMakeFiles/convertBAG.dir/src/saveLidarBag.cpp.o" \
 "CMakeFiles/convertBAG.dir/src/saveIMUBag.cpp.o" \
 "CMakeFiles/convertBAG.dir/src/saveImageBag.cpp.o" \
-"CMakeFiles/convertBAG.dir/src/progress_bar.cpp.o"
+"CMakeFiles/convertBAG.dir/src/progress_bar.cpp.o" \
+"CMakeFiles/convertBAG.dir/src/getAllFiles.cpp.o" \
+"CMakeFiles/convertBAG.dir/src/setProgressBar.cpp.o" \
+"CMakeFiles/convertBAG.dir/src/timeConverter.cpp.o"
 
 # External object files for target convertBAG
 convertBAG_EXTERNAL_OBJECTS =
@@ -138,6 +180,9 @@ convertBAG_EXTERNAL_OBJECTS =
 /home/kenyi/catkin_ws/devel/lib/hello_world/convertBAG: hello_world/CMakeFiles/convertBAG.dir/src/saveIMUBag.cpp.o
 /home/kenyi/catkin_ws/devel/lib/hello_world/convertBAG: hello_world/CMakeFiles/convertBAG.dir/src/saveImageBag.cpp.o
 /home/kenyi/catkin_ws/devel/lib/hello_world/convertBAG: hello_world/CMakeFiles/convertBAG.dir/src/progress_bar.cpp.o
+/home/kenyi/catkin_ws/devel/lib/hello_world/convertBAG: hello_world/CMakeFiles/convertBAG.dir/src/getAllFiles.cpp.o
+/home/kenyi/catkin_ws/devel/lib/hello_world/convertBAG: hello_world/CMakeFiles/convertBAG.dir/src/setProgressBar.cpp.o
+/home/kenyi/catkin_ws/devel/lib/hello_world/convertBAG: hello_world/CMakeFiles/convertBAG.dir/src/timeConverter.cpp.o
 /home/kenyi/catkin_ws/devel/lib/hello_world/convertBAG: hello_world/CMakeFiles/convertBAG.dir/build.make
 /home/kenyi/catkin_ws/devel/lib/hello_world/convertBAG: /opt/ros/noetic/lib/librosbag.so
 /home/kenyi/catkin_ws/devel/lib/hello_world/convertBAG: /opt/ros/noetic/lib/librosbag_storage.so
@@ -222,7 +267,7 @@ convertBAG_EXTERNAL_OBJECTS =
 /home/kenyi/catkin_ws/devel/lib/hello_world/convertBAG: /usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4
 /home/kenyi/catkin_ws/devel/lib/hello_world/convertBAG: /usr/local/lib/liblas.so
 /home/kenyi/catkin_ws/devel/lib/hello_world/convertBAG: hello_world/CMakeFiles/convertBAG.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/kenyi/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable /home/kenyi/catkin_ws/devel/lib/hello_world/convertBAG"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/kenyi/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable /home/kenyi/catkin_ws/devel/lib/hello_world/convertBAG"
 	cd /home/kenyi/catkin_ws/build/hello_world && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/convertBAG.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
